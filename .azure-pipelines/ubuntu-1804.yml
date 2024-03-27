@@ -24,3 +24,6 @@ steps:
     pathToPublish: '$(build.artifactStagingDirectory)'
     artifactName: 'artifact'
     artifactType: 'container'
+- task: CMake@1
+  inputs:
+    cmakeArgs: '--no-warn-unused-cli -DCMAKE_EXNDS:BOOL=ON -DCMAKE_TOOLCHAIN_FILE:FILEPATH=Toolchain_C2000.cmake "-B./builds/"%arg1% -G Ninja -DCMAKE_BUILD_TYPE:STRING=%arg1% -DEXRO_CAN_INTERFACE:STRING=%1 -DEXRO_MOTOR:STRING=%2 -DLAUNCHPAD_BUILD:BOOL=%3 -DDIGITAL_IO_OVERRIDE:BOOL=%4 -DSENSOR_OVERRIDE:BOOL=%5 -DJ1939_VERIFY:BOOL=%6 -DDIGITAL_IO_OVERRIDE_OUTPUT:BOOL=%7 -DPWM_OVERRIDE:BOOL=%8 && cmake --build builds/%arg1% --parallel 22 --verbose --target %9'
